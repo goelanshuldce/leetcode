@@ -1,0 +1,62 @@
+2. Add Two Numbers
+Medium
+
+5852
+
+1508
+
+Favorite
+
+Share
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example:
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.
+
+
+/**
+ * Example:
+ * var li = ListNode(5)
+ * var v = li.`val`
+ * Definition for singly-linked list.
+ * class ListNode(var `val`: Int) {
+ *     var next: ListNode? = null
+ * }
+ */
+class Solution {
+    fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
+    var a = l1
+    var b = l2
+    var output: ListNode? = null
+    var p :ListNode? = null
+    var carry = 0
+    while(a!= null || b != null){
+        if(output == null){
+            output = ListNode((getVal(a)+getVal(b) + carry)%10)
+                p = output
+        } else {
+            output?.next = ListNode((getVal(a)+getVal(b)+carry)%10)
+            output = output?.next
+        }
+        carry = (getVal(a)+getVal(b) + carry)/10
+        a = a?.next
+        b = b?.next
+    }
+    if(carry == 1){
+        output?.next = ListNode(1)
+    }
+    return p
+}
+
+fun getVal(a: ListNode?): Int {
+    if(a== null){
+        return 0
+    }
+    return a?.`val`
+}
+}
